@@ -30,7 +30,7 @@ public class WordCountDriver  {
         //1.source
         DataStreamSource<String> lines = env.fromElements("itcast hadoop spark", "itcast hadoop spark", "itcast hadoop", "itcast");
 
-
+        // lines.addSink()
         //socker源 nc -lk 9999
         //DataStreamSource<String> lines = env.socketTextStream("cdh6.com", 9999);
 
@@ -53,7 +53,7 @@ public class WordCountDriver  {
         SingleOutputStreamOperator<String> words = lines.flatMap(
                 (String value, Collector<String> out) -> Arrays.stream(value.split(" ")).forEach(out::collect)
         ).returns(Types.STRING);
-
+        
         //切割
         /*
         DataStream<Tuple2<String, Integer>> wordAndOne = words.map(new MapFunction<String, Tuple2<String, Integer>>() {
